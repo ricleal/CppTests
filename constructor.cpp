@@ -27,7 +27,7 @@ public:
 	}
 };
 
-int main(void) {
+int main_constructor(void) {
 	MyClass m1(1);
 	MyClass m2 = m1; //copy
 	MyClass m3(m1); //copy
