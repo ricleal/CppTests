@@ -4,7 +4,7 @@
 
 using namespace std;
 
-int main(void) {
+int main_pointer(void) {
 
 	// m × n matrix / m-by-n matrix
 	// m rows / n collumns
