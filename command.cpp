@@ -77,7 +77,7 @@ private:
 
 };
 
-int main() {
+int main_command() {
 	//using namespace std;
 
 	ConverterDictionary dict;
