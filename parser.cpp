@@ -56,7 +56,7 @@ public:
 	}
 
 	/**
-	 * Parse fields of type R
+	 * Parse fields of type R and keep them in the header
 	 */
 	void parseFieldR() {
 		std::string line;
@@ -68,6 +68,9 @@ public:
 		header["NVERS"] = parsedLineFields[2];
 	}
 
+	/**
+	 * Parse fields of type A
+	 */
 	void parseFieldA() {
 		std::string line;
 		std::getline(fin, line);
@@ -98,7 +101,7 @@ public:
 
 		std::vector<std::string> keys(nNumericFields);
 		std::vector<std::string> values(nNumericFields);
-		int index = 0;
+		size_t index = 0;
 		for (int i = 0; i < nTextLines; i++) {
 			std::getline(fin, line);
 			std::vector<std::string> s = splitLineInFixedWithFields(line,
@@ -122,13 +125,12 @@ public:
 			}
 		}
 
-		std::vector<std::string>::const_iterator iKeys;
-		std::vector<std::string>::const_iterator iValues;
-		for (iKeys = keys.begin(), iValues = values.begin();
-				iKeys < keys.end() && iValues < values.end();
-				++iKeys, ++iValues) {
-			if (*iValues != "" && *iKeys != "") {
-				header[*iKeys] = *iValues;
+		std::vector<std::string>::const_iterator iKey;
+		std::vector<std::string>::const_iterator iValue;
+		for (iKey = keys.begin(), iValue = values.begin();
+				iKey < keys.end() && iValue < values.end(); ++iKey, ++iValue) {
+			if (*iValue != "" && *iKey != "") {
+				header[*iKey] = *iValue;
 			}
 		}
 
@@ -151,39 +153,38 @@ public:
 					fieldWith);
 			nSpectraRead += s.size();
 			for (auto it = s.begin(); it != s.end(); ++it) {
-// THIS TAKES 2 SEC. With sscanf a few ms...
-//				try {
-//					boost::algorithm::erase_all(*it, " ");
-//					spectrumValues[index] = boost::lexical_cast<int>(*it);
-//
-//				} catch (const boost::bad_lexical_cast& e) {
-//					std::cerr << "ERROR lexical cast to int: " << e.what()
-//							<< '\n';
-//					spectrumValues[index] = 0;
-//				}
-				sscanf(it->c_str(),"%d",&spectrumValues[index]);
-
+				sscanf(it->c_str(), "%d", &spectrumValues[index]);
 				index += 1;
 			}
 		}
 		return spectrumValues;
 	}
 
+	/**
+	 * Shows contents
+	 */
 	void showHeader() {
+		std::cout << "* Global header" << '\n';
 		for (auto it = header.begin(); it != header.end(); ++it)
 			std::cout << it->first << " => " << it->second << '\n';
 
-		std::cout << "List of spec headers: " << spectraHeaders.size() << '\n';
+		std::cout << "* Spectrum header" << '\n';
+		int i = 0;
 		std::vector<std::map<std::string, std::string> >::const_iterator s;
 		for (s = spectraHeaders.begin(); s != spectraHeaders.end(); ++s) {
+			std::cout << "** Spectrum i : " << i << '\n';
 			std::map<std::string, std::string>::const_iterator it;
 			for (it = s->begin(); it != s->end(); ++it)
-				std::cout << it->first << " => " << it->second << '\n';
+				std::cout << it->first << " => " << it->second << ',';
+			std::cout << std::endl;
+			i++;
 		}
 
+		std::cout << "* Spectrum list" << '\n';
 		std::vector<std::vector<int> >::const_iterator l;
 		for (l = spectraList.begin(); l != spectraList.end(); ++l) {
-			std::cout << " => " << l->size() << '\n';
+			std::cout << "From " << (*l)[0] << " to " << (*l)[l->size() - 1]
+					<< " => " << l->size() << '\n';
 
 		}
 
@@ -192,9 +193,6 @@ public:
 	void startParseSpectra() {
 		std::string line;
 		std::getline(fin, line);
-//		int spectraNumber, spectraRemaing, spectraTotal;
-//		sscanf(line.c_str(), "%d %d %d", &spectraNumber, &spectraRemaing,
-//				&spectraTotal);
 		while (std::getline(fin, line)) {
 			if (line.find(
 					"IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
@@ -206,76 +204,12 @@ public:
 					!= std::string::npos) {
 				spectraHeaders.push_back(std::map<std::string, std::string>());
 				parseFieldNumeric(spectraHeaders.back(), floatWith);
-//
-//				for (auto it = spectraHeaders[pos].begin(); it != spectraHeaders[pos].end(); ++it)
-//								std::cout << it->first << " * => " << it->second << '\n';
-
 			} else if (line.find(
 					"SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS")
 					!= std::string::npos) {
 				std::getline(fin, line);
-//				sscanf(line.c_str(), "%d %d %d", &spectraNumber,
-//						&spectraRemaing, &spectraTotal);
-////				std::cout << line << std::endl;
-//				std::cout << spectraNumber << " ; " << spectraRemaing << " ; "
-//						<< spectraTotal << std::endl;
-
 			}
-
 		}
-
-	}
-
-	void doNothing() {
-
-	}
-
-//		void parseNumericSection(int fieldWith) {
-//			std::string line;
-//			std::getline(fin, line);
-//			int nNumericFields = -1, nTextLines = -1;
-//			sscanf(line.c_str(), "%d %d", &nNumericFields, &nTextLines);
-//
-//			if (nTextLines > -1) {
-//				// parse text lines first
-//				// concatenate them in header
-//				std::string header;
-//				for (int i; i < nTextLines; i++) {
-//					std::getline(fin, line);
-//					header += line;
-//				}
-//				// parse numeric fields
-//				int pos = 0;
-//				std::vector<std::string> out;
-//				while (pos < nNumericFields) {
-//					std::getline(fin, line);
-//					out = parseFixedSizeField<T>(line, fieldWith);
-//					pos += out.size();
-//				}
-//
-//				//std::cout << out[0] << std::endl;
-//			} else {
-//				// We are on a spectrum!
-//			}
-//		}
-
-	template<typename T> std::vector<T> parseFixedSizeField(
-			const std::string &s, int fieldWidth) {
-		std::vector<T> outVec;
-		size_t pos = 0;
-		while (pos + fieldWidth <= s.length()) {
-			std::string subs = s.substr(pos, fieldWidth);
-			boost::algorithm::erase_all(subs, " ");
-			//std::cout << subs << std::endl;
-			try {
-				T value = boost::lexical_cast<T>(subs);
-				outVec.push_back(value);
-			} catch (boost::bad_lexical_cast &) {
-				outVec.push_back(0);
-			}
-			pos += fieldWidth;
-		}
-		return outVec;
 	}
 
 	/**
@@ -333,12 +267,6 @@ int main() {
 	ILLParser p("/net/serdon/illdata/data/d2b/exp_5-21-1076/rawdata/123944");
 	p.startParsing();
 	p.showHeader();
-//	std::vector<std::string> s =
-//			p.splitLineInFixedWithFields(
-//					"  0.50700000E+05                                                                ",
-//					16);
-//	for (auto i : s)
-//		std::cout << " -> '" << i << "'" << std::endl;
 
 	std::cout << "Done!" << std::endl;
 	return 0;
