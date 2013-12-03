@@ -262,7 +262,7 @@ private:
 
 };
 
-int main() {
+int main_parser() {
 
 	ILLParser p("/net/serdon/illdata/data/d2b/exp_5-21-1076/rawdata/123944");
 	p.startParsing();

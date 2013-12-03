@@ -1,3 +1,8 @@
+/**
+ *
+ * Substitution failure is not an error
+ *
+ */
 #include <iostream>
 
 template <typename T>
@@ -22,7 +27,7 @@ struct foo {
     typedef float foobar;
 };
 
-int main_2() {
+int main_sfinae() {
     std::cout << std::boolalpha;
     std::cout << has_typedef_foobar<int>::value << std::endl;
     std::cout << has_typedef_foobar<foo>::value << std::endl;
