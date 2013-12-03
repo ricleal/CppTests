@@ -3,6 +3,9 @@
  *
  *  Created on: Oct 9, 2012
  *      Author: leal
+ *
+ * Run-Time Type Information
+ *
  */
 
 #include <iostream>
