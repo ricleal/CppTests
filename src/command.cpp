@@ -92,4 +92,5 @@ int main_command() {
 	con = dict.lookup('O');
 	std::cout << num << " -> " << con->convert(num) << std::endl;
 
+	return 0;
 }

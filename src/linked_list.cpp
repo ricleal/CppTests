@@ -5,9 +5,9 @@
  *      Author: leal
  */
 
-#include "/home/leal/git/CppTests/linked_list.h"
+#include "linked_list.h"
 
-int main_linkedlist(void) {
+int main_linked_list(void) {
 
 	LinkedList<int> l1 = LinkedList<int>(1);
 	l1.append(2);
@@ -17,5 +17,6 @@ int main_linkedlist(void) {
 	if (f1 != NULL)
 		std::cout << "Found: " << f1->value << std::endl;
 
+	return 0;
 }
 

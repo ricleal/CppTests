@@ -109,7 +109,7 @@ Dummy& f3(Dummy &m) {
 }
 
 
-int main(void) {
+int main_return_opt(void) {
 	cout << "1........................." <<endl;
 	Dummy d1 = fRetClassValue();
 	cout << d1;
