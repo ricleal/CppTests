@@ -9,8 +9,39 @@
 
 using namespace std;
 
+class InnerDummy {
+
+public:
+	InnerDummy(){
+		cout << "\t -> InnerDummy Default Constructor" << endl;
+	}
+	virtual ~InnerDummy() {
+			cout << "\t -> InnerDummy desctructor" << endl;
+		}
+
+	InnerDummy(const InnerDummy& other) {
+		cout << "\t -> InnerDummy Copy Constructor" << endl;
+	}
+	// Two existing objects!
+	InnerDummy& operator=(const InnerDummy& other) {
+		cout << "\t -> InnerDummy Copy Assignment Operator" << endl;
+		return *this;
+	}
+	//C++11
+	InnerDummy(InnerDummy&& other) {
+		cout << "\t -> InnerDummy C++11 Move Constructor" << endl;
+	}
+	//C++11
+	InnerDummy& operator=(InnerDummy&& other) {
+		cout << "\t -> InnerDummy C++11 Move Operator" << endl;
+		return *this;
+	}
+
+};
+
+
 class Dummy {
-	int x;
+
 public:
 	Dummy() :
 			x(0) {
@@ -49,7 +80,23 @@ public:
 		this->x = x;
 	}
 
+	void setInnerDummy(InnerDummy d){
+		this->innerDummy = d;
+	}
+
+	InnerDummy getInnerDummyValue()  const {
+		return this->innerDummy;
+	}
+
+	InnerDummy &getInnerDummyRef() {
+		return this->innerDummy;
+	}
+
 	friend ostream& operator<<(ostream &out, const Dummy &m);
+
+private:
+	int x;
+	InnerDummy innerDummy;
 };
 
 ostream& operator<<(ostream &out, const Dummy &m) {
@@ -153,6 +200,18 @@ int main_return_opt(void) {
 	d6.setX(1234);
 	cout << "d1" << d1;
 	cout << "d8" << d8;
+
+	cout << "5........................." <<endl;
+	Dummy d9(1);
+	InnerDummy id1;
+	d9.setInnerDummy(id1);
+	cout << " --- copy const:" << endl;
+	const InnerDummy id2 = d9.getInnerDummyValue();
+	cout << " --- copy const:" << endl;
+	const InnerDummy &id3 = d9.getInnerDummyValue();
+	cout << " --- No copy const:" << endl;
+	const InnerDummy &id4 = d9.getInnerDummyRef();
+
 
 	cout << "END ........................." <<endl;
 

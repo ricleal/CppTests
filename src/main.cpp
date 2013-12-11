@@ -7,11 +7,12 @@
 #include <iostream>
 
 int main_array_initialisation();
+int main_return_opt();
 
 int main() {
 	std::cout << "Starting..." << std::endl;
 
-	main_array_initialisation();
+	main_return_opt();
 
 	std::cout << "Done!" << std::endl;
 	return 0;
