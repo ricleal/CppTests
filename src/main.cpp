@@ -8,11 +8,12 @@
 
 int main_array_initialisation();
 int main_return_opt();
+int main_unzip(int argc, char** argv);
 
-int main() {
+int main(int argc, char** argv) {
 	std::cout << "Starting..." << std::endl;
 
-	main_return_opt();
+	main_unzip(argc,argv);
 
 	std::cout << "Done!" << std::endl;
 	return 0;

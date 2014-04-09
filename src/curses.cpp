@@ -3,6 +3,7 @@
 
 
 // Compile as:
+// need libncurses
 // gcc curses.cpp -o curses -lcurses
 
 
