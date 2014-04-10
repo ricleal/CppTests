@@ -20,6 +20,7 @@
 class Parser {
 public:
 	virtual ~Parser() {
+		m_file->close();
 		std::cout << "Parser dead...\n";
 	}
 
@@ -46,9 +47,17 @@ public:
 	}
 
 	void reset(){
+//		std::cout <<" Tellg:  " << m_instream->tellg() << std::endl;;
 		m_instream->clear();
-//		m_instream->seekg(0, std::ios::beg);
+		std::streampos pos = m_instream->tellg();
+		std::cout <<" Current pos:  " << pos << std::endl;
+
+
 //		m_instream->clear();
+//		m_instream->seekg(0, std::ios::beg);
+//		pos = m_instream->tellg();
+//		std::cout <<" Current pos:  " << pos << std::endl;
+
 	}
 private:
 
@@ -116,7 +125,9 @@ int main_unzip(int argc, char** argv) {
 	char *filepath = argv[1];
 	Parser p(filepath);
 	//p.parseAll();
+	p.reset();
 	std::cout << p.getLine() << std::endl;
+	p.reset();
 	std::cout << p.getLine() << std::endl;
 	p.reset();
 	std::cout << p.getLine() << std::endl;
