@@ -18,3 +18,5 @@ Debug/*
 .settings/
 
 /Debug
+/Release
+
