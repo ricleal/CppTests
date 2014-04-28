@@ -6,12 +6,12 @@
 
 int main_sscanfTest() {
 
-	std::string s("123 3434 frfrf 121212 12");
+	std::string s("123 4444 frfrf 121212 12");
 
 	int v1 = -1, v2 = -1;
 
 	std::stringstream sstm;
-	sstm << "%" << 10 << "d %" << 10 << "d";
+	sstm << "%" << 2 << "d %" << 2 << "d";
 	std::string pattern = sstm.str();
 
 	sscanf(s.c_str(), pattern.c_str(), &v1, &v2);
