@@ -2,7 +2,7 @@
  * oop.cpp
  *
  *  Created on: Sep 4, 2015
- *      Author: rhf
+ *      Author: ferrazlealrm@ornl.gov
  *
  *  OOP example of URL:
  *  scheme:[//domain[:port]][/]path
@@ -12,6 +12,7 @@
 #include <string>
 #include <map>
 
+// Abstract class: cannot be instantiated
 class URL {
 protected:
 	std::string domain = "ornl.gov";
@@ -22,6 +23,7 @@ protected:
 		return scheme + "://" + domain + ":" + port;
 	}
 public:
+	// Pure virtual function: i.e. must be overridden by a derived class
 	virtual std::string build_url() const = 0;
 	~URL() {};
 };
