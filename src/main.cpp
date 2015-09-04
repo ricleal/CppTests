@@ -12,7 +12,7 @@ int main_unzip(int argc, char** argv);
 int main_parser();
 int main_sscanfTest();
 
-int main(int argc, char** argv) {
+int main_todo(int argc, char** argv) {
 	std::cout << "Starting..." << std::endl;
 
 	//main_unzip(argc,argv);

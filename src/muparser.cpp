@@ -1,5 +1,5 @@
 #include <iostream>
-#include <muParser/muParser.h>
+#include <muParser.h>
 
 // g++ muparser.cpp -o muparser -lmuparser
 
