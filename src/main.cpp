@@ -12,11 +12,12 @@ int main_unzip(int argc, char** argv);
 int main_parser();
 int main_sscanfTest();
 int main_test_tree(int argc, char **argv);
+int main_map_performance(int argc, char **argv);
 
 int main(int argc, char** argv) {
 	std::cout << "Starting..." << std::endl;
 
-	main_test_tree(argc,argv);
+	main_map_performance(argc,argv);
 
 	std::cout << "Done!" << std::endl;
 	return 0;
