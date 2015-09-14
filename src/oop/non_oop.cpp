@@ -22,7 +22,7 @@ std::string build_url(const std::string &scheme,
 	return scheme + "://" + domain + ":" + port;
 }
 
-int main(int argc, char* argv[]) {
+int main_non_oop(int argc, char* argv[]) {
 	if (argc != 2) {
 		std::cerr << "Use " + std::string(argv[0]) + " [http, https, ftp]"<<std::endl;
 		exit(-1);

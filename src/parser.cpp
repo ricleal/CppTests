@@ -20,7 +20,8 @@ public:
 		fin.open(filename);
 	}
 	virtual ~ILLParser() {
-		if (fin != NULL) {
+		//if (fin != NULL) {
+		if (!fin.fail() ){
 			fin.close();
 		}
 	}

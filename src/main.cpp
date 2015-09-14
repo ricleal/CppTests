@@ -11,12 +11,12 @@ int main_return_opt();
 int main_unzip(int argc, char** argv);
 int main_parser();
 int main_sscanfTest();
+int main_test_tree();
 
-int main_todo(int argc, char** argv) {
+int main(int argc, char** argv) {
 	std::cout << "Starting..." << std::endl;
 
-	//main_unzip(argc,argv);
-	main_sscanfTest();
+	main_test_tree();
 
 	std::cout << "Done!" << std::endl;
 	return 0;

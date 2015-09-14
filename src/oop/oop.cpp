@@ -76,7 +76,7 @@ std::string build_url(const URL &url) {
 	return url.build_url();
 }
 
-int main(int argc, char* argv[]) {
+int main_oop(int argc, char* argv[]) {
 	if (argc != 2) {
 		std::cerr << "Use " + std::string(argv[0]) + " [http, https, ftp]"
 				<< std::endl;
