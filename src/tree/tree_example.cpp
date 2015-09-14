@@ -21,7 +21,8 @@
 #include <algorithm>
 #include <string>
 #include <iostream>
-#include "tree.hh"
+
+#include "tree.h"
 
 using namespace std;
 

@@ -1,6 +1,7 @@
 #include <iostream>
-#include "tree.hh"
-#include "tree_util.hh"
+
+#include "tree.h"
+#include "tree_util.h"
 
 tree<std::string> test_move_constructor() {
 	tree<std::string> mtree;

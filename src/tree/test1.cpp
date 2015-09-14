@@ -1,7 +1,8 @@
 
 #include <iostream>
-#include "tree.hh"
-#include "tree_util.hh"
+
+#include "tree.h"
+#include "tree_util.h"
 
 int main_tree_test1(int, char **)
 	{

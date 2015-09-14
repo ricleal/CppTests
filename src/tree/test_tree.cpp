@@ -18,9 +18,6 @@
  
  */
 
-#include "tree.hh"
-#include "tree_util.hh"
-
 #include <iostream>
 #include <string>
 #include <algorithm>
@@ -28,6 +25,9 @@
 #include <list>
 #include <utility>
 #include <stdexcept>
+
+#include "tree.h"
+#include "tree_util.h"
 
 /*
 
@@ -398,5 +398,6 @@ int main_test_tree(int argc, char **argv) {
 //		test_move_constructor();
 
 	}
+	return 0;
 }
 
