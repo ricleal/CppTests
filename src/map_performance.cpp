@@ -11,7 +11,7 @@ class Xpto2000 {
 public:
 	Xpto2000(int i) :
 			id(0) {
-		myints.resize(i);
+		myints.reserve(i);
 	}
 
 	void setId(int id_) {
@@ -33,17 +33,14 @@ void init(std::vector<Xpto2000*> &objects_vector,
 		const unsigned int maxloop) {
 	// initialisations
 	for (unsigned int i = 0; i < maxloop; ++i) {
-		Xpto2000 *m = new Xpto2000(100);
+		Xpto2000 *m = new Xpto2000(rand());
 		m->fill_vector_random();
 		m->setId(i);
-		objects_vector.push_back(m);
-
+		objects_vector[i] = m;
 		auto to_insert = std::pair<void*, Xpto2000*>(static_cast<void*>(m), m);
 		objects_map.insert(to_insert);
 	}
 }
-
-
 
 
 int main_map_performance(int argc, char **argv) {
@@ -60,8 +57,9 @@ int main_map_performance(int argc, char **argv) {
 		int id = std::rand() % maxloop;
 
 		auto it_xpto = std::find_if(objects_vector.begin(),
-				objects_vector.end(), [&id](const Xpto2000 *obj) {
-					return obj !=NULL && obj->getId() == id;
+				objects_vector.end(),
+				[&id](const Xpto2000 *obj) {
+					return obj->getId() == id;
 				});
 
 		auto it = objects_map.find(static_cast<void*>(*it_xpto));
@@ -71,12 +69,8 @@ int main_map_performance(int argc, char **argv) {
 	}
 
 	// free memory
-	for (auto it = objects_vector.begin(); it != objects_vector.end(); ++it) {
-		if (*it) {
-			//std::cout << "Deleting: " << (*it)->getId() << std::endl;
-			delete *it;
-		}
-	}
+	for (auto it = objects_vector.begin(); it != objects_vector.end(); ++it)
+		if (*it) delete *it;
 
 	return 0;
 }
