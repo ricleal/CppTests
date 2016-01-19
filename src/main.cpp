@@ -13,11 +13,14 @@ int main_parser();
 int main_sscanfTest();
 int main_test_tree(int argc, char **argv);
 int main_map_performance(int argc, char **argv);
-
+int main_xml_poco(int argc, char*argv[]);
+int main_non_oop(int argc, char* argv[]);
+int main_oop(int argc, char* argv[]);
 int main(int argc, char** argv) {
 	std::cout << "Starting..." << std::endl;
 
-	main_map_performance(argc,argv);
+	main_non_oop(argc,argv);
+	main_oop(argc,argv);
 
 	std::cout << "Done!" << std::endl;
 	return 0;

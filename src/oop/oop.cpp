@@ -11,6 +11,7 @@
 #include <iostream>
 #include <string>
 #include <map>
+#include <initializer_list> //C++11?
 
 // Abstract class: cannot be instantiated
 class URL {
@@ -70,6 +71,26 @@ public:
 };
 
 /**
+ * Sort of factory
+ */
+template <class T>
+class Registry{
+private:
+	std::map<std::string, T*> choices;
+public:
+	void register_entry( std::initializer_list< std::pair<const std::string, T*> > list_of_pairs){
+	    for( auto elem : list_of_pairs ){
+	        std::cout << "Registering: " << elem.first << std::endl ;
+	        choices.insert(list_of_pairs.begin(), list_of_pairs.end());
+	    }
+	}
+	// Given a string, returns an object
+	T* get(const std::string &name){
+		return choices[name];
+	}
+};
+
+/**
  * Main function
  */
 std::string build_url(const URL &url) {
@@ -85,18 +106,15 @@ int main_oop(int argc, char* argv[]) {
 	std::string scheme = argv[1];
 
 	// UGLY!!!
-	// In real world I would have here some sort of Dependency Injection (e.g. factory)
-	// This just shows that we can get an object given a string
-	Http http;
-	Https https;
-	Ftp ftp;
-	std::map<std::string, URL*> choices;
-	choices.insert(std::make_pair("http", &http));
-	choices.insert(std::make_pair("https", &https));
-	choices.insert(std::make_pair("ftp", &ftp));
+	// In real world I would have here some sort of better Dependency Injection:
+	Http http; Https https; Ftp ftp;
+	Registry<URL> reg;
+	reg.register_entry({std::make_pair("http", &http),
+		std::make_pair("https", &https), std::make_pair("ftp", &ftp)});
 
 	if (scheme == "http" or scheme == "https" or scheme == "ftp") {
-		std::cout <<  build_url(*choices[scheme]) << std::endl;
+		URL *url = reg.get(scheme);
+		std::cout << "Built URL: " << build_url(*url) << std::endl;
 	} else {
 		std::cerr << "Scheme not valid. Use of these: http, https, ftp"
 				<< std::endl;
