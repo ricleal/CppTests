@@ -4,7 +4,7 @@
 #include <chrono>
 
 volatile int sink;
-int main()
+int main_chrono()
 {
     for (auto size = 1ull; size < 1000000000ull; size *= 100) {
         // record start time

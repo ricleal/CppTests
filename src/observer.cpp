@@ -27,5 +27,7 @@ int main_observer() {
 
 	subj.setNews("This is the news 1");
 	subj.setNews("This is the news 2");
+
+	return 0;
 }
 

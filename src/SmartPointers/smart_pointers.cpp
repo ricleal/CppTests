@@ -29,14 +29,14 @@ void test()
 	A *a = new A();
 	delete a;
 	// Same:
-	std::unique_ptr<A> b = std::make_unique<A>();
-	auto c = std::make_unique<A>();
+	std::shared_ptr<A> b = std::make_shared<A>();
+	auto c = std::make_shared<A>();
 	// Same:
 	std::shared_ptr<A> d = std::make_shared<A>();
 	auto e = std::make_shared<A>();
 }
 
-int main()
+int main_smart_pointers()
 {
 	std::cout << "Main started." << std::endl;
   auto start = std::chrono::system_clock::now();
